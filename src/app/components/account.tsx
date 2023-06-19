@@ -4,7 +4,7 @@ export default function Account() {
     return (
         <div className="flex justify-start items-center w-11/12 my-8 mx-auto ">
             <Image
-                className="rounded-full shadow-md outline-none mr-[20%] ml-[5%] sm:mr-[30%] lg:mr-[45%] sm:w-128"
+                className="rounded-full shadow-md outline-none mr-[20%] ml-[5%] sm:mr-[30%] lg:mr-[45%] sm:max-w-128"
                 src="/images/pfp.jpg"
                 alt="avatar-img"
                 width={80}

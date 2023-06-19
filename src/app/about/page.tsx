@@ -2,7 +2,7 @@
 import Image from "next/image";
 
 
-export default function Home() {
+export default function About() {
     return (
         <main className="mb-10">
             <header className="flex items-center flex-col mt-[10%]">
