@@ -39,9 +39,8 @@ const Dropdown = () => {
 
     const links = [
         { dir: "/", name: "Home" },
-        { dir: "/search", name: "Search" },
+        { dir: "/explore", name: "Explore" },
         { dir: "/user", name: "Account" },
-        { dir: "/settings", name: "Settings" },
         { dir: "/about", name: "About" }
     ]
 
@@ -59,7 +58,7 @@ const Dropdown = () => {
                     {dropdown && <Content links={links} onToggle={hideMenu} />}
                 </div>
             ) : (
-                <div className="text-white text-sm font-extralight space-x-6 mr-12">
+                <div className="text-white text-sm font-light space-x-6 mr-12">
                     {links.map(({ dir, name }, index) => {
                         return (
                             <Link className="hover:text-gray-200" key={index} href={dir} >{name}</Link>

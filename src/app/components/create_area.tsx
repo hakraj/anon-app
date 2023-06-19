@@ -1,19 +1,23 @@
 'use client'
 
 import { useState } from "react";
-import Fab from "@mui/material/Fab";
+import { Zoom, Fab } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
-import { Zoom } from "@mui/material";
 
 export default function CreateArea() {
+    // state to expand the create_area
+    const [isExpand, setIsExpand] = useState(false);
+
     // note input form state
     const [note, setNote] = useState({
         title: "",
         content: ""
     });
 
-    // state to expand the create_area
-    const [isExpand, setIsExpand] = useState(false);
+    // fn to handle the isExpand
+    function handleClick() {
+        setIsExpand(true);
+    }
 
     // fn to handle change in input and textarea [nested setnote fn]
     function handleChange(event: { target: { name: any; value: any; }; }) {
@@ -26,8 +30,6 @@ export default function CreateArea() {
             };
         });
 
-        console.log(note);
-
     }
 
     // function submitNote(event: { preventDefault: () => void; }) {
@@ -39,10 +41,6 @@ export default function CreateArea() {
     //     event.preventDefault();
     // }
 
-    // fn to handle the isExpand
-    function handleClick() {
-        setIsExpand(true);
-    }
 
     return (
         <div>
