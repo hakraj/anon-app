@@ -1,7 +1,7 @@
 import Intro from "../components/intro";
 import CreateArea from "../components/create_area";
-import Note from "../components/note";
 import Account from "../components/account";
+import AllNote from "../components/all_notes";
 
 
 export default function Profile() {
@@ -10,7 +10,7 @@ export default function Profile() {
             <Intro text="Hey Anon!" />
             <Account />
             <CreateArea />
-            <Note />
+            <AllNote />
         </main>
     )
 }
