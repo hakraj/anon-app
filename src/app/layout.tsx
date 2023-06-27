@@ -1,3 +1,4 @@
+import { StyledEngineProvider } from '@mui/material/styles';
 import { Metadata } from 'next'
 import './globals.css'
 import { montserrat } from './fonts'
@@ -16,18 +17,18 @@ export const metadata: Metadata = {
   twitter: { card: 'summary_large_image' }
 }
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={montserrat.className}>
-      <body className="relative min-h-screen">
-        <Header />
-        {children}
-        <Footer />
-      </body>
-    </html>
-  )
+    <StyledEngineProvider injectFirst>
+      <html lang="en" className={montserrat.className}>
+        <body className="relative min-h-screen">
+          <Header />
+          {children}
+          <Footer />
+        </body>
+      </html>
+    </StyledEngineProvider>
+  );
 }
+
+
