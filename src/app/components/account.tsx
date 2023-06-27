@@ -2,13 +2,14 @@ import Image from "next/image";
 
 export default function Account() {
     return (
-        <div className="flex justify-start items-center w-11/12 my-8 mx-auto ">
-            <div>
+        <div className="flex justify-start items-center w-11/12 my-8 mx-auto lg:w-1/2 ">
+            <div className="ml-[5%] mr-auto">
                 <Image
-                    className="rounded-full shadow-md outline-none mr-[20%] ml-[5%] sm:mr-[30%] lg:mr-[45%]"
+                    className="rounded-full shadow-md outline-none"
                     src="/images/pfp.jpg"
                     alt="avatar-img"
-                    fill
+                    width={108}
+                    height={108}
                 />
             </div>
 
