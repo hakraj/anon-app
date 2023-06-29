@@ -44,7 +44,7 @@ export default function Search() {
 
   return (
     <main>
-      <IntroText text="Search for notes" />
+      <IntroText text="Search for posts" />
       <SearchArea queryData={queryData} />
       <SearchResponse show={isFeedback} matchNo={foundPosts ? foundPosts.length : 0} />
       <Note posts={foundPosts} />

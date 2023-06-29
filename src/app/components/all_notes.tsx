@@ -1,7 +1,8 @@
 'use client'
 
-import { useEffect, useState } from 'react';
 import Note from "./note";
+import { useEffect, useState } from 'react';
+
 
 export default function AllNote() {
     const [posts, setPosts] = useState([]);
@@ -26,7 +27,9 @@ export default function AllNote() {
 
 
     return (
-        <Note posts={posts} />
+        <>
+            <Note posts={posts} />
+        </>
     )
 }
 

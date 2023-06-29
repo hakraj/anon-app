@@ -2,15 +2,13 @@ import { NextResponse } from 'next/server';
 import dbConnect from '../../../../../lib/dbConnect';
 import Post from '../../../../../models/Post';
 
-export async function GET(req: Request) {
+export async function GET(req: Request, { params }: { params: { id: string } }) {
     try {
-        const id = await req.json()
-
         await dbConnect()
 
-        const post = await Post.findById(id)
+        const post = await Post.findById(params.id)
         if (!post) {
-            return NextResponse.json({ success: false })
+            return NextResponse.json({ success: false, err: "no pot" })
         }
         return NextResponse.json({ success: true, data: post })
     } catch (error) {
@@ -18,32 +16,32 @@ export async function GET(req: Request) {
     }
 }
 
-export async function PUT(req: Request,) {
+export async function PUT(req: Request, { params }: { params: { id: string } }) {
     try {
-        const { id, newpost } = await req.json()
+        const newpost = await req.json()
 
         await dbConnect()
 
-        const post = await Post.findByIdAndUpdate(id, newpost, {
+        const post = await Post.findByIdAndUpdate(params.id, newpost, {
             new: true,
             runValidators: true,
         })
         if (!post) {
             return NextResponse.json({ success: false })
         }
+        console.log(post);
+
         return NextResponse.json({ success: true, data: post })
     } catch (error) {
         return NextResponse.json({ success: false })
     }
 }
 
-export async function DELETE(req: Request,) {
+export async function DELETE(req: Request, { params }: { params: { id: string } }) {
     try {
-        const id = await req.json()
-
         await dbConnect()
 
-        const deletedPost = await Post.deleteOne({ _id: id })
+        const deletedPost = await Post.deleteOne({ _id: params.id })
         if (!deletedPost) {
             return NextResponse.json({ success: false })
         }

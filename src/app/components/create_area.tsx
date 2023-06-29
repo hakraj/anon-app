@@ -1,9 +1,9 @@
 'use client'
 
-import { useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
 import Fab from "@mui/material/Fab/Fab";
 import Zoom from "@mui/material/Zoom/Zoom";
+import { useState } from "react";
 
 
 export default function CreateArea() {
@@ -90,7 +90,7 @@ export default function CreateArea() {
           name="content"
           onChange={handleChange}
           value={note.content}
-          placeholder="Take a note..."
+          placeholder="Make a post..."
           rows={isExpand ? 3 : 1}
         />
         <Zoom in={isExpand}>

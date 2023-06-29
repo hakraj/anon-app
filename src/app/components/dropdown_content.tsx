@@ -28,7 +28,7 @@ const Content = (
                     height={20}
                 />
             </header>
-            <div>
+            <div className=" py-16">
                 {links.map(({ dir, name }, index) => {
                     return (
                         <h1 key={index} className="text-white text-center my-10 text-3xl">

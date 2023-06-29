@@ -58,7 +58,7 @@ export default function SearchArea(
           name="qcontent"
           onChange={handleChange}
           value={query.qcontent}
-          placeholder="Find a note..."
+          placeholder="Find a post..."
           rows={3}
         />
         <Zoom in={true}>

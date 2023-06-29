@@ -6,10 +6,10 @@ export default function Account() {
             <div className="ml-[5%] mr-auto">
                 <Image
                     className="rounded-full shadow-md outline-none"
-                    src="/images/pfp.jpg"
+                    src="/images/anon-avatar.png"
                     alt="avatar-img"
-                    width={108}
-                    height={108}
+                    width={102}
+                    height={102}
                 />
             </div>
 
