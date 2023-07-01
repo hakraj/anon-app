@@ -12,13 +12,6 @@ export default function Search() {
   const [foundPosts, setFoundNotes] = useState([]);
   const [isFeedback, setIsFeedback] = useState(false);
 
-  // fn to handle if query is found state 
-  const found = (post: []) => {
-    setFoundNotes(post)
-
-    setIsFeedback(true)
-  }
-
   /* The GET method adds a query entry in the mongodb database. */
   const queryData = async (query: { qtitle?: string, qcontent?: string }) => {
     try {
@@ -36,7 +29,10 @@ export default function Search() {
 
       const data = await res.json()
 
-      found(data.data);
+      setFoundNotes(data.data)
+
+      setIsFeedback(true)
+
     } catch (error) {
       console.log('Failed to find post')
     }
