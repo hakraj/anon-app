@@ -5,6 +5,9 @@ module.exports = {
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
+  //Add the important option, using the id of your app wrapper. For example, #__next for Next.js and "#root" for CRA
+  // important: '#__next',
+
   theme: {
     extend: {
       backgroundImage: {
@@ -15,4 +18,9 @@ module.exports = {
     },
   },
   plugins: [],
+
+  //Remove Tailwind CSS's preflight style so it can use the MUI's preflight instead
+  // corePlugins: {
+  //   preflight: false,
+  // },
 }

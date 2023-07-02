@@ -29,6 +29,9 @@ export default function Search() {
 
       const data = await res.json()
 
+      console.log(data.data);
+
+
       setFoundNotes(data.data)
 
       setIsFeedback(true)
