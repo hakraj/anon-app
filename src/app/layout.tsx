@@ -1,6 +1,3 @@
-'use client'
-
-import * as React from 'react';
 import { StyledEngineProvider } from '@mui/material/styles';
 import { Metadata } from 'next'
 import './globals.css'
