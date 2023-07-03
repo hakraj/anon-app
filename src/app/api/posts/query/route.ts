@@ -4,12 +4,14 @@ import dbConnect from '../../../../../lib/dbConnect';
 import Post from '../../../../../models/Post';
 import { FilterQuery } from 'mongoose';
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 type QueryConditions = {
     $and: { [key: string]: any }[];
 } | {
     [key: string]: { [key: string]: any };
 };
-
 
 export async function GET(req: Request) {
     try {

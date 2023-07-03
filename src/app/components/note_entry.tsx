@@ -38,7 +38,7 @@ export default function Entry(
 
 
     return (
-        <div onClick={handleClick} className="bg-white rounded-lg shadow-md p-2 sm:p-3 m-2 sm:m-4 h-fit w-full float-left">
+        <div onClick={handleClick} className="bg-white rounded-lg shadow-md p-2 sm:p-3 m-2 sm:m-4 h-fit float-left">
             <h1 className="text-[0.85rem] sm:text-[1.1rem] mb-2 break-words">{title && title.length > 30 ? title.substring(0, 30) + "..." : title}</h1>
             <p className="text-[0.85rem] sm:text-[1.1rem] mb-2 sm:mb-3 whitespace-pre-wrap break-words">{content && content.length > 100 ? content.substring(0, 100) + "..." : content}</p>
             {!isMobile &&
