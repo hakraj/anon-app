@@ -4,7 +4,7 @@ import Note from "./note";
 import { useEffect, useState } from 'react';
 
 
-export default function AllNote() {
+const AllNote = () => {
     const [posts, setPosts] = useState([]);
 
     useEffect(() => {
@@ -27,9 +27,9 @@ export default function AllNote() {
 
 
     return (
-        <>
-            <Note posts={posts} />
-        </>
+        <Note posts={posts} />
     )
 }
+
+export default AllNote;
 

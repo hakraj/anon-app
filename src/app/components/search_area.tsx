@@ -1,11 +1,7 @@
 'use client'
-
 import { useState } from "react";
-import SearchIcon from '@mui/icons-material/Search';
-import Fab from "@mui/material/Fab/Fab";
-import Zoom from "@mui/material/Zoom/Zoom";
 
-export default function SearchArea(
+const SearchArea = (
   { queryData }: {
     queryData: (
       query: {
@@ -14,7 +10,7 @@ export default function SearchArea(
       }
     ) => Promise<void>
   }
-) {
+) => {
 
   // Query_note input form state
   const [query, setQuery] = useState({ qtitle: "", qcontent: "" });
@@ -61,12 +57,14 @@ export default function SearchArea(
           placeholder="Find a post..."
           rows={3}
         />
-        <Zoom in={true}>
-          <Fab onClick={submitQuery} className="absolute right-4 -bottom-5 bg-[#f5ba13] text-white hover:text-[#f5ba13] border-none w-9 h-9 shadow-sm cursor-pointer outline-none">
-            <SearchIcon />
-          </Fab>
-        </Zoom>
+        <button onClick={submitQuery} className=" flex justify-center items-center absolute right-4 -bottom-4 bg-[#f5ba13] text-white hover:text-[#f5ba13] hover:bg-[#eee] border-none w-8 h-8 shadow-sm cursor-pointer outline-none rounded-full">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+          </svg>
+        </button>
       </form>
     </div>
   );
 }
+
+export default SearchArea;

@@ -7,13 +7,13 @@ import SearchResponse from "../components/search_res";
 import Note from "../components/note";
 
 
-export default function Search() {
+const Search = () => {
 
   const [foundPosts, setFoundNotes] = useState([]);
   const [isFeedback, setIsFeedback] = useState(false);
 
-  /* The GET method adds a query entry in the mongodb database. */
-  const queryData = async (query: { qtitle?: string, qcontent?: string }) => {
+  /* The GET method finds a query entry in the mongodb database. */
+  async function queryData(query: { qtitle?: string, qcontent?: string }) {
     try {
       const { qtitle, qcontent } = query
 
@@ -29,10 +29,14 @@ export default function Search() {
 
       const data = await res.json()
 
-      setFoundNotes(data.data)
+      console.log(data);
 
-      setIsFeedback(true)
 
+      if (data.success) {
+        setFoundNotes(data.data)
+
+        setIsFeedback(true)
+      }
     } catch (error) {
       console.log('Failed to find post')
     }
@@ -47,3 +51,5 @@ export default function Search() {
     </main>
   );
 }
+
+export default Search;

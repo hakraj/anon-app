@@ -1,12 +1,8 @@
 'use client'
-
-import AddIcon from "@mui/icons-material/Add";
-import Fab from "@mui/material/Fab/Fab";
-import Zoom from "@mui/material/Zoom/Zoom";
 import { useState } from "react";
 
 
-export default function CreateArea() {
+const CreateArea = () => {
 
   // state to expand the create_area
   const [isExpand, setIsExpand] = useState(false);
@@ -36,7 +32,7 @@ export default function CreateArea() {
   }
 
   /* The POST method adds a new entry in the mongodb database. */
-  const postData = async (post: { title: string, content: string, }) => {
+  async function postData(post: { title: string, content: string, }) {
 
     const contentType = 'application/json'
 
@@ -93,12 +89,15 @@ export default function CreateArea() {
           placeholder="Make a post..."
           rows={isExpand ? 3 : 1}
         />
-        <Zoom in={isExpand}>
-          <Fab onClick={submitNote} className="absolute right-4 -bottom-5 bg-[#f5ba13] text-white hover:text-[#f5ba13] border-none w-9 h-9 shadow-sm cursor-pointer outline-none">
-            <AddIcon />
-          </Fab>
-        </Zoom>
+        {isExpand &&
+          <button onClick={submitNote} className=" flex justify-center items-center absolute right-4 -bottom-4 bg-[#f5ba13] text-white hover:text-[#f5ba13] hover:bg-[#eee] border-none w-8 h-8 shadow-sm cursor-pointer outline-none rounded-full">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+              <path fillRule="evenodd" d="M12 3.75a.75.75 0 01.75.75v6.75h6.75a.75.75 0 010 1.5h-6.75v6.75a.75.75 0 01-1.5 0v-6.75H4.5a.75.75 0 010-1.5h6.75V4.5a.75.75 0 01.75-.75z" clipRule="evenodd" />
+            </svg>
+          </button>}
       </form>
     </div>
   );
 }
+
+export default CreateArea;

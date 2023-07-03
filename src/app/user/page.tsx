@@ -4,7 +4,7 @@ import Account from "../components/account";
 import AllNote from "../components/all_notes";
 
 
-export default function Profile() {
+const Profile = () => {
     return (
         <main>
             <Intro text="Hey Anon!" />
@@ -14,3 +14,5 @@ export default function Profile() {
         </main>
     )
 }
+
+export default Profile

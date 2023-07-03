@@ -1,6 +1,10 @@
 
-export default function MatchesFound({ show, matchNo }: { show: boolean, matchNo: number }) {
-
+const MatchesFound = (
+    { show, matchNo }: {
+        show: boolean,
+        matchNo: number
+    }
+) => {
     return (
         <>
             {show &&
@@ -13,3 +17,4 @@ export default function MatchesFound({ show, matchNo }: { show: boolean, matchNo
     )
 }
 
+export default MatchesFound;

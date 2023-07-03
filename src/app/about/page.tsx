@@ -2,7 +2,7 @@
 import Image from "next/image";
 
 
-export default function About() {
+const About = () => {
     return (
         <main className="mb-10">
             <header className="flex items-center flex-col mt-[10%]">
@@ -22,3 +22,5 @@ export default function About() {
         </main>
     );
 }
+
+export default About

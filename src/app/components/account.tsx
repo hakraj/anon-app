@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-export default function Account() {
+const Account = () => {
     return (
         <div className="flex justify-start items-center w-11/12 my-8 mx-auto lg:w-1/2 ">
             <div className="ml-[5%] mr-auto">
@@ -25,3 +25,5 @@ export default function Account() {
         </div>
     )
 }
+
+export default Account;

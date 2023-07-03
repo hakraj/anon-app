@@ -3,7 +3,7 @@ import CreateArea from "./components/create_area";
 import AllNote from "./components/all_notes";
 
 
-export default function Home() {
+const Home = () => {
   return (
     <main>
       <Intro text="Hello, Love to Share Anon?" />
@@ -12,3 +12,5 @@ export default function Home() {
     </main>
   )
 }
+
+export default Home;
