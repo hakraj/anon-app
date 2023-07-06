@@ -14,7 +14,7 @@ export default function Entry(
     const router = useRouter();
 
     const [isLike, setLike] = useState(likes);
-    const [isLiked, setLiked] = useState(false)
+    const [isLiked, setLiked] = useState(likes !== 0)
 
     function handleClick() {
         router.push(`/${id}`)

@@ -91,12 +91,12 @@ const Edit = ({ params }: { params: { id: string } }) => {
             </svg>
           </div>
 
-          <hr className="mb-8 border-slate-300" />
+          <hr className="mb-8 border-slate-300 dark:border-slate-500" />
 
           <form>
             <div className="my-4">
               <label htmlFor="postTitle">Title</label>
-              <input className="w-full border border-slate-300 focus:border-[#f5ba13] rounded-lg mt-1 p-1.5 outline-none text-xl font-family-inherit resize-none"
+              <input className="dark:bg-slate-700 w-full border border-slate-300 dark:border-slate-500 focus:border-[#f5ba13] rounded-lg mt-1 p-1.5 outline-none text-xl font-family-inherit resize-none"
                 onChange={handleChange}
                 type="text"
                 name="title"
@@ -107,7 +107,7 @@ const Edit = ({ params }: { params: { id: string } }) => {
             </div>
             <div className="my-4">
               <label htmlFor="postContent">Content</label>
-              <textarea className="w-full border border-slate-300 focus:border-[#f5ba13] rounded-lg mt-1 p-1.5 outline-none text-base sm:text-xl font-family-inherit resize-none "
+              <textarea className="dark:bg-slate-700 w-full border border-slate-300 dark:border-slate-500 focus:border-[#f5ba13] rounded-lg mt-1 p-1.5 outline-none text-base sm:text-xl font-family-inherit resize-none "
                 onChange={handleChange}
                 name="content"
                 id="postContent"

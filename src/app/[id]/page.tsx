@@ -20,7 +20,7 @@ const IdPost = ({ params }: { params: { id: string } }) => {
 
     const [post, setPost] = useState({ _id: "", title: "", content: "", likes: 0, comments: [{ text: "", createdAt: new Date().toLocaleDateString(), }] });
     const { _id, title, content, likes, comments } = post;
-
+    const [isLiked, setLiked] = useState(likes !== 0)
 
     const [newComment, setNewComment] = useState({ text: "", createdAt: new Date().toLocaleDateString() })
 
@@ -43,6 +43,7 @@ const IdPost = ({ params }: { params: { id: string } }) => {
     }, [params.id]);
 
     function handleLike() {
+        setLiked(true)
         const count = likes + 1;
         setPost((prev) => {
             return {
@@ -123,9 +124,15 @@ const IdPost = ({ params }: { params: { id: string } }) => {
                         <h1 className="text-2xl">{title}</h1>
                         <div className='flex items-center justify-around w-24' >
                             <p className="text-[0.5rem]">{likes}</p>
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-5 h-5" onClick={handleLike}>
-                                <path d="M9.653 16.915l-.005-.003-.019-.01a20.759 20.759 0 01-1.162-.682 22.045 22.045 0 01-2.582-1.9C4.045 12.733 2 10.352 2 7.5a4.5 4.5 0 018-2.828A4.5 4.5 0 0118 7.5c0 2.852-2.044 5.233-3.885 6.82a22.049 22.049 0 01-3.744 2.582l-.019.01-.005.003h-.002a.739.739 0 01-.69.001l-.002-.001z" />
-                            </svg>
+                            {isLiked ?
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-5 h-5 text-red-600 dark:text-red-400" onClick={handleLike}>
+                                    <path d="M9.653 16.915l-.005-.003-.019-.01a20.759 20.759 0 01-1.162-.682 22.045 22.045 0 01-2.582-1.9C4.045 12.733 2 10.352 2 7.5a4.5 4.5 0 018-2.828A4.5 4.5 0 0118 7.5c0 2.852-2.044 5.233-3.885 6.82a22.049 22.049 0 01-3.744 2.582l-.019.01-.005.003h-.002a.739.739 0 01-.69.001l-.002-.001z" />
+                                </svg>
+                                :
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-red-600 dark:text-red-400" onClick={handleLike}>
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                                </svg>
+                            }
 
                             <Link href={`/${params.id}/edit`} >
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 text-[#f5ba13]">
@@ -137,17 +144,17 @@ const IdPost = ({ params }: { params: { id: string } }) => {
                         </div>
                     </div>
 
-                    <hr className="mb-8 border-slate-300" />
+                    <hr className="mb-8 border-slate-300 dark:border-slate-500" />
 
                     <div>
                         <p>{content}</p>
                     </div>
 
                     <div className="mt-8">
-                        <h1 className="text-slate-500">Comments</h1>
-                        <hr className="border-slate-300" />
+                        <h1 className="text-slate-500 dark:text-slate-400">Comments</h1>
+                        <hr className="border-slate-300 dark:border-slate-500" />
                         <form>
-                            <input className="w-3/4 border border-slate-300 focus:border-[#f5ba13] rounded-lg mt-1 mr-1 p-1.5 outline-none  font-family-inherit resize-none"
+                            <input className="dark:bg-slate-700 w-3/4 border border-slate-300 dark:border-slate-500 focus:border-[#f5ba13] rounded-lg mt-1 mr-1 p-1.5 outline-none  font-family-inherit resize-none"
                                 onChange={handleChange}
                                 type="text"
                                 name="comment"
@@ -171,7 +178,7 @@ const IdPost = ({ params }: { params: { id: string } }) => {
                                         />
                                         <p>{comment.text}</p>
                                     </div>
-                                    <p className="text-slate-400 text-xs">{comment.createdAt}</p>
+                                    <p className="text-slate-400 dark:text-slate-500 text-xs">{comment.createdAt}</p>
                                 </div>
                             )
                         })}
