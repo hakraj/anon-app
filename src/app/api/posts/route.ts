@@ -28,9 +28,11 @@ export async function POST(req: Request) {
             return result;
         }, {});
 
-        await dbConnect()
+        if (Object.keys(doc).length === 0) {
+            return NextResponse.json({ success: false, err: "empty post" });
+        }
 
-        console.log(doc);
+        await dbConnect()
 
         const post = await Post.create(doc) /* create a new model in the database */
         return NextResponse.json({ success: true, data: post })

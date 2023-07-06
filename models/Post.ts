@@ -34,7 +34,7 @@ const PostSchema: Schema = new Schema({
                 type: String,
                 maxlength: [2450, "Content cannot be more than 2450 characters"],
             },
-            createdAt: { type: Date }
+            createdAt: { type: String, default: new Date().toLocaleDateString() }
         }
     ]
 

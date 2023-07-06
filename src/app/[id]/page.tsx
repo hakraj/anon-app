@@ -20,7 +20,6 @@ const IdPost = ({ params }: { params: { id: string } }) => {
 
     const [post, setPost] = useState({ _id: "", title: "", content: "", likes: 0, comments: [{ text: "", createdAt: new Date().toLocaleDateString(), }] });
     const { _id, title, content, likes, comments } = post;
-    const [isLiked, setLiked] = useState(likes !== 0)
 
     const [newComment, setNewComment] = useState({ text: "", createdAt: new Date().toLocaleDateString() })
 
@@ -30,17 +29,20 @@ const IdPost = ({ params }: { params: { id: string } }) => {
             const response = await fetch(`/api/posts/${params.id}`);
             const data = await response.json();
             setPost(data.data);
+            setLiked(likes !== 0)
         };
 
         // Fetch the initial posts data
         fetchData();
 
         // Fetch the latest posts data every 10 seconds
-        const interval = setInterval(fetchData, 10000);
+        const interval = setInterval(fetchData, 5000);
 
         // Cleanup the interval on component unmount
         return () => clearInterval(interval);
-    }, [params.id]);
+    }, [likes, params.id]);
+
+    const [isLiked, setLiked] = useState(likes !== 0)
 
     function handleLike() {
         setLiked(true)
@@ -123,7 +125,7 @@ const IdPost = ({ params }: { params: { id: string } }) => {
                     <div className='flex items-center justify-between m-1 mt-8'>
                         <h1 className="text-2xl">{title}</h1>
                         <div className='flex items-center justify-around w-24' >
-                            <p className="text-[0.5rem]">{likes}</p>
+                            <p className="text-[0.5rem]">{(likes !== 0) && likes}</p>
                             {isLiked ?
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-5 h-5 text-red-600 dark:text-red-400" onClick={handleLike}>
                                     <path d="M9.653 16.915l-.005-.003-.019-.01a20.759 20.759 0 01-1.162-.682 22.045 22.045 0 01-2.582-1.9C4.045 12.733 2 10.352 2 7.5a4.5 4.5 0 018-2.828A4.5 4.5 0 0118 7.5c0 2.852-2.044 5.233-3.885 6.82a22.049 22.049 0 01-3.744 2.582l-.019.01-.005.003h-.002a.739.739 0 01-.69.001l-.002-.001z" />

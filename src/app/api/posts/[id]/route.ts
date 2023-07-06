@@ -30,6 +30,9 @@ export async function PUT(req: Request, { params }: { params: { id: string } }) 
             return NextResponse.json({ success: false })
         }
 
+        console.log(post);
+
+
         return NextResponse.json({ success: true, data: post })
     } catch (error) {
         return NextResponse.json({ success: false })

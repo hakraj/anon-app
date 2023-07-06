@@ -51,10 +51,6 @@ const CreateArea = () => {
         throw new Error(res.status.toString())
       }
 
-      const data = await res.json()
-
-      console.log(data);
-
     } catch (error) {
       postMessage('Failed to add post')
     }
