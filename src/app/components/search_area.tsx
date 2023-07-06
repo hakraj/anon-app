@@ -41,16 +41,16 @@ const SearchArea = (
 
   return (
     <div>
-      <form className="bg-white relative w-11/12 sm:w-[30rem] mx-auto my-4 p-3 rounded-lg shadow-md focus:shadow-[#f5ba13]">
+      <form className="bg-white dark:bg-slate-700 relative w-11/12 sm:w-[30rem] mx-auto my-4 p-3 rounded-lg shadow-md focus:shadow-[#f5ba13]">
         <input
-          className="w-full border-none p-1 outline-none text-xl font-family-inherit resize-none"
+          className="dark:bg-slate-700 w-full border-none p-1 outline-none text-xl font-family-inherit resize-none"
           name="qtitle"
           onChange={handleChange}
           value={query.qtitle}
           placeholder="Find a Title"
         />
         <textarea
-          className="w-full border-none p-1 outline-none text-base sm:text-xl font-family-inherit resize-none"
+          className="dark:bg-slate-700 w-full border-none p-1 outline-none text-base sm:text-xl font-family-inherit resize-none"
           name="qcontent"
           onChange={handleChange}
           value={query.qcontent}
