@@ -17,12 +17,26 @@ const PostSchema: Schema = new Schema({
         /* Content of the post */
 
         type: String,
-        maxlength: [2450, "Content cannot be more than 60 characters"],
+        maxlength: [2450, "Content cannot be more than 2450 characters"],
         validate: {
             validator: (value: string) => value.trim().length > 0,
             message: 'Title must not be empty.',
         },
     },
+    likes: {
+        type: Number,
+        default: 0
+    },
+    comments: [
+        {
+            author: { type: String },
+            text: {
+                type: String,
+                maxlength: [2450, "Content cannot be more than 2450 characters"],
+            },
+            createdAt: { type: Date }
+        }
+    ]
 
 })
 

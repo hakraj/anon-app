@@ -2,14 +2,27 @@
 
 import DelButton from "../components/del_button";
 import Link from "next/link";
+import Image from "next/image";
 import { useState, useEffect } from 'react';
+
+interface Post {
+    _id: string,
+    title: string,
+    content: string,
+    likes: number,
+    comments: [
+        text: string,
+        createdAt: Date,
+    ]
+}
 
 const IdPost = ({ params }: { params: { id: string } }) => {
 
-    const [post, setPost] = useState({ _id: "", title: "", content: "" });
+    const [post, setPost] = useState({ _id: "", title: "", content: "", likes: 0, comments: [{ text: "", createdAt: new Date().toLocaleDateString(), }] });
+    const { _id, title, content, likes, comments } = post;
 
-    const { title, content } = post
 
+    const [newComment, setNewComment] = useState({ text: "", createdAt: new Date().toLocaleDateString() })
 
     useEffect(() => {
         const fetchData = async () => {
@@ -29,20 +42,91 @@ const IdPost = ({ params }: { params: { id: string } }) => {
         return () => clearInterval(interval);
     }, [params.id]);
 
+    function handleLike() {
+        const count = likes + 1;
+        setPost((prev) => {
+            return {
+                ...prev,
+                likes: count
+            };
+        })
+
+        putData({ likes: count })
+
+    }
+
+    function handleChange(event: { target: { value: any; }; }) {
+        const { value } = event.target;
+
+        setNewComment({
+            text: value,
+            createdAt: new Date().toLocaleDateString(),
+        })
+
+    }
+
+    function submitComment(event: { preventDefault: () => void; }) {
+
+        setPost((prev) => {
+            return {
+                ...prev,
+                comments: [newComment, ...comments,]
+            };
+        })
+
+        putData({ comments: [newComment, ...comments,] }).then(() => {
+            setNewComment({
+                text: "",
+                createdAt: new Date().toLocaleDateString(),
+            })
+        })
+
+        event.preventDefault();
+    }
+
+    const putData = async (post: { _id?: string; title?: string; content?: string; likes?: number; comments?: {}[]; }) => {
+
+        const contentType = 'application/json'
+
+        try {
+            const res: Response = await fetch(`/api/posts/${_id}`, {
+                method: 'PUT',
+                headers: {
+                    Accept: contentType,
+                    'Content-Type': contentType,
+                },
+                body: JSON.stringify(post),
+            })
+
+            // Throw error with status code in case Fetch API req failed
+            if (!res.ok) {
+                throw new Error(res.status.toString())
+            }
+
+        } catch (error) {
+            postMessage('Failed to add post')
+        }
+    }
+
     return (
         <main>
             <div className="container flex justify-center items-center">
                 <div className="w-11/12 sm:w-3/4 p-4 sm:p-8">
 
                     <Link href="/">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 text-[#f5ba13]">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 inline-block text-[#f5ba13]">
                             <path fillRule="evenodd" d="M7.72 12.53a.75.75 0 010-1.06l7.5-7.5a.75.75 0 111.06 1.06L9.31 12l6.97 6.97a.75.75 0 11-1.06 1.06l-7.5-7.5z" clipRule="evenodd" />
                         </svg>
                     </Link>
 
                     <div className='flex items-center justify-between m-1 mt-8'>
                         <h1 className="text-2xl">{title}</h1>
-                        <div className='flex items-center justify-around w-20' >
+                        <div className='flex items-center justify-around w-24' >
+                            <p className="text-[0.5rem]">{likes}</p>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-5 h-5" onClick={handleLike}>
+                                <path d="M9.653 16.915l-.005-.003-.019-.01a20.759 20.759 0 01-1.162-.682 22.045 22.045 0 01-2.582-1.9C4.045 12.733 2 10.352 2 7.5a4.5 4.5 0 018-2.828A4.5 4.5 0 0118 7.5c0 2.852-2.044 5.233-3.885 6.82a22.049 22.049 0 01-3.744 2.582l-.019.01-.005.003h-.002a.739.739 0 01-.69.001l-.002-.001z" />
+                            </svg>
+
                             <Link href={`/${params.id}/edit`} >
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 text-[#f5ba13]">
                                     <path d="M21.731 2.269a2.625 2.625 0 00-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 000-3.712zM19.513 8.199l-3.712-3.712-8.4 8.4a5.25 5.25 0 00-1.32 2.214l-.8 2.685a.75.75 0 00.933.933l2.685-.8a5.25 5.25 0 002.214-1.32l8.4-8.4z" />
@@ -59,6 +143,39 @@ const IdPost = ({ params }: { params: { id: string } }) => {
                         <p>{content}</p>
                     </div>
 
+                    <div className="mt-8">
+                        <h1 className="text-slate-500">Comments</h1>
+                        <hr className="border-slate-300" />
+                        <form>
+                            <input className="w-3/4 border border-slate-300 focus:border-[#f5ba13] rounded-lg mt-1 mr-1 p-1.5 outline-none  font-family-inherit resize-none"
+                                onChange={handleChange}
+                                type="text"
+                                name="comment"
+                                id="comment"
+                                placeholder="Leave a comment here ..."
+                                required
+                                value={newComment.text}
+                            />
+                            <button onClick={submitComment} className="bg-inherit p-1 px-2 text-[#f5ba13] border-[#f5ba13] border rounded-lg hover:text-white hover:bg-[#f5ba13]">Send</button>
+                        </form>
+                        {comments && comments.map((comment, index) => {
+                            return (
+                                <div key={index} className="my-4">
+                                    <div className='flex items-center justify-start my-1'>
+                                        <Image
+                                            className="rounded-full shadow-md outline-none mr-4"
+                                            src="/images/anon-avatar.png"
+                                            alt="avatar-img"
+                                            width={24}
+                                            height={24}
+                                        />
+                                        <p>{comment.text}</p>
+                                    </div>
+                                    <p className="text-slate-400 text-xs">{comment.createdAt}</p>
+                                </div>
+                            )
+                        })}
+                    </div>
 
                 </div>
             </div>

@@ -28,13 +28,13 @@ export async function POST(req: Request) {
             return result;
         }, {});
 
-
-
         await dbConnect()
+
+        console.log(doc);
 
         const post = await Post.create(doc) /* create a new model in the database */
         return NextResponse.json({ success: true, data: post })
     } catch (error) {
-        return NextResponse.json({ success: false })
+        return NextResponse.json({ success: false, err: error })
     }
 }

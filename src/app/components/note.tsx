@@ -7,7 +7,9 @@ const Note = (
             posts: {
                 _id: string,
                 title: string,
-                content: string
+                content: string,
+                likes: number,
+                comments: []
             }[]
         }
 ) => {
@@ -23,6 +25,8 @@ const Note = (
                             id={post._id}
                             title={post.title}
                             content={post.content}
+                            likes={post.likes}
+                            comments={post.comments}
                         />
                     )
                 })

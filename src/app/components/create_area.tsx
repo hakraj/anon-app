@@ -51,6 +51,10 @@ const CreateArea = () => {
         throw new Error(res.status.toString())
       }
 
+      const data = await res.json()
+
+      console.log(data);
+
     } catch (error) {
       postMessage('Failed to add post')
     }
@@ -70,7 +74,7 @@ const CreateArea = () => {
 
   return (
     <div>
-      <form className="bg-white relative w-11/12 sm:w-[30rem] mx-auto my-4 p-3 rounded-lg shadow-md focus:shadow-[#f5ba13]">
+      <form className="bg-white dark:bg-slate-800 relative w-11/12 sm:w-[30rem] mx-auto my-4 p-3 rounded-lg shadow-md focus:shadow-[#f5ba13]">
         {isExpand && (
           <input
             className="w-full border-none p-1 outline-none text-xl font-family-inherit resize-none"

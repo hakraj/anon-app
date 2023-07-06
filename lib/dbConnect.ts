@@ -29,7 +29,7 @@ async function dbConnect() {
         family: 4 // Use IPv4, skip trying IPv6
     };
 
-    const prom = await mongoose.connect(MONGODB_URI as string, options).then((mongoose) => { mongoose });
+    const prom = await mongoose.connect(MONGODB_URI as string, options).then((mongoose) => { mongoose })
 
     return prom;
 
