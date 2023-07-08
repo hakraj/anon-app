@@ -1,14 +1,11 @@
-import Link from "next/link";
-import { monofett } from "../fonts";
+import Logo from "./logo";
 import Features from "./dropdown";
 
 
 const Header = () => {
     return (
         <header className=" flex justify-between items-center bg-[#f5ba13] py-4 mb-8 px-8 shadow-[0_0_10px_0_rgba(0,0,0,0.3)] ">
-            <Link href="/">
-                <h1 className={`text-white text-4xl ${monofett.className}`} > Anon </h1>
-            </Link>
+            <Logo color={"white"} />
             <Features />
         </header>
     );

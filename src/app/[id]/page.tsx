@@ -156,7 +156,8 @@ const IdPost = ({ params }: { params: { id: string } }) => {
                         <h1 className="text-slate-500 dark:text-slate-400">Comments</h1>
                         <hr className="border-slate-300 dark:border-slate-500" />
                         <form>
-                            <input className="dark:bg-slate-700 w-3/4 border border-slate-300 dark:border-slate-500 focus:border-[#f5ba13] rounded-lg mt-1 mr-1 p-1.5 outline-none  font-family-inherit resize-none"
+                            <input
+                                className="dark:bg-slate-700 w-3/4 border border-slate-300 dark:border-slate-500 focus:border-[#f5ba13] rounded-lg mt-1 mr-1 p-1.5 outline-none  font-family-inherit resize-none"
                                 onChange={handleChange}
                                 type="text"
                                 name="comment"

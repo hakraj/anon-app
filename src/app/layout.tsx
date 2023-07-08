@@ -1,8 +1,11 @@
+'use client'
+
 import { Metadata } from 'next'
 import './globals.css'
 import { montserrat } from './fonts'
 import Footer from './components/Footer'
 import Header from './components/Navbar'
+import { usePathname } from 'next/navigation'
 
 const appName = 'Anon'
 
@@ -19,12 +22,15 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode,
 }) {
+  const pathname = usePathname();
+
+  const isAuthPage = pathname === '/auth/login' || pathname === '/auth/signup';
   return (
     <html lang="en" className={montserrat.className}>
       <body className="relative min-h-screen">
-        <Header />
+        {!isAuthPage && <Header />}
         {children}
         <Footer />
       </body>
