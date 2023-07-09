@@ -69,7 +69,7 @@ export default function Entry(
             <p className="text-slate-600 dark:text-slate-400 text-[0.85rem] sm:text-[1.1rem] mb-2 sm:mb-3 whitespace-pre-wrap break-words">{content && content.length > 100 ? content.substring(0, 100) + "..." : content}</p>
 
             <div className=" flex justify-between items-center my-1">
-                <div className="flex justify-around items-center w-1/3 sm:w-[30%] ">
+                <div className="flex justify-around items-center w-2/5 sm:w-1/3 ">
                     <p className="text-[0.5rem]">{(isLike !== 0) && isLike}</p>
                     {isLiked ?
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-5 h-5 text-red-600 dark:text-red-400" onClick={handleLike}>

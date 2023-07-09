@@ -5,7 +5,7 @@ const Signup = () => {
     return (
         <main>
             <div className="container flex justify-center items-center">
-                <div className="bg-white dark:bg-slate-800 rounded-lg w-5/6 sm:w-[25rem] p-6 sm:p-8 text-center mt-[20vh]">
+                <div className="bg-white dark:bg-slate-800 rounded-lg w-5/6 sm:w-[25rem] p-6 sm:p-8 text-center mt-[10vh]">
                     <form>
                         <Logo color={"[#f5ba13]"} />
                         <h1 className="my-4 text-xl text-slate-600 dark:text-slate-400">Please sign up</h1>

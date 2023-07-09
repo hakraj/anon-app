@@ -38,10 +38,10 @@ const Dropdown = () => {
     }
 
     const links = [
-        { dir: "/", name: "Home" },
-        { dir: "/explore", name: "Explore" },
-        { dir: "/user", name: "Account" },
-        { dir: "/about", name: "About" }
+        { dir: "/dev/", name: "Home" },
+        { dir: "/dev/explore", name: "Explore" },
+        { dir: "/dev/user", name: "Account" },
+        { dir: "/dev/about", name: "About" }
     ]
 
     return (
