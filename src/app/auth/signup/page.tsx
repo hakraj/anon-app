@@ -5,13 +5,13 @@ const Signup = () => {
     return (
         <main>
             <div className="container flex justify-center items-center">
-                <div className="bg-white dark:bg-slate-800 rounded-lg w-5/6 sm:w-[25rem] p-6 sm:p-8 text-center mt-[10vh]">
+                <div className="bg-white dark:bg-slate-800 rounded-lg w-5/6 sm:w-[25rem] p-6 sm:p-8 text-center mt-[15vh] sm:mt-[20vh]">
                     <form>
                         <Logo color={"[#f5ba13]"} />
                         <h1 className="my-4 text-xl text-slate-600 dark:text-slate-400">Please sign up</h1>
 
-                        <div className="form-floating text-left text-slate-600 dark:text-slate-400 my-1">
-                            <label className="text-sm" htmlFor="floatingEmail">Email</label><br />
+                        <div className="form-floating text-left my-1">
+                            <label className="text-sm text-slate-600 dark:text-slate-400" htmlFor="floatingEmail">Email</label><br />
                             <input
                                 type="email"
                                 className="dark:bg-slate-700 w-full border border-slate-300 dark:border-slate-500 focus:border-[#f5ba13] rounded-lg mt-1 mr-1 p-1.5 outline-none  font-family-inherit resize-none"
@@ -22,8 +22,8 @@ const Signup = () => {
                                 autoFocus
                             />
                         </div>
-                        <div className="form-floating text-left my-1 text-slate-600 dark:text-slate-400">
-                            <label className="text-sm" htmlFor="floatingPassword">Password</label><br />
+                        <div className="form-floating text-left my-1 ">
+                            <label className="text-sm  text-slate-600 dark:text-slate-400" htmlFor="floatingPassword">Password</label><br />
                             <input
                                 type="password"
                                 className="dark:bg-slate-700 w-full border border-slate-300 dark:border-slate-500 focus:border-[#f5ba13] rounded-lg mt-1 mr-1 p-1.5 outline-none  font-family-inherit resize-none"
