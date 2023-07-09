@@ -16,7 +16,7 @@ export default function Entry(
     const [isLiked, setLiked] = useState(likes !== 0)
 
     function handleClick() {
-        router.push(`/${id}`)
+        router.push(`/dev/${id}`)
     }
 
     function handleLike(e: { stopPropagation: () => void; }) {
@@ -33,7 +33,7 @@ export default function Entry(
     function handleComment(e: { stopPropagation: () => void; }) {
         e.stopPropagation();
 
-        router.push(`/${id}#comment`)
+        router.push(`/dev/${id}#comment`)
     }
 
     /* The PUT method modifies entry in the mongodb database. */

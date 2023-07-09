@@ -73,7 +73,7 @@ const Edit = ({ params }: { params: { id: string } }) => {
 
     event.preventDefault();
 
-    router.push(`/${params.id}`)
+    router.push(`/dev/${params.id}`)
   }
 
 

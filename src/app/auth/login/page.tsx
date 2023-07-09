@@ -39,7 +39,7 @@ const Login = () => {
                         </div>
 
                         <button className="hover:bg-white text-xl w-full p-2 hover:text-[#f5ba13] border-[#f5ba13] border rounded-lg text-white bg-[#f5ba13]">Login</button>
-                        <p className="mt-5 text-sm text-slate-400">Don&apos;t have an account? <br /><Link className="underline t" href="/auth/signup">Signup here</Link>.</p>
+                        <p className="mt-5 text-sm text-slate-400">Don&apos;t have an account? <br /><Link className="underline" href="/auth/signup">Signup here</Link>.</p>
                     </form>
                 </div >
             </div >
