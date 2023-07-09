@@ -1,6 +1,6 @@
 'use client'
 
-import DelButton from "../components/del_button";
+import DelButton from "../../components/del_button";
 import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect } from 'react';

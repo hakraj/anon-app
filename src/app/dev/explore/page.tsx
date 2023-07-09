@@ -1,10 +1,10 @@
 'use client'
 
 import { useState } from "react";
-import IntroText from "../components/intro";
-import SearchArea from "../components/search_area";
-import SearchResponse from "../components/search_res";
-import Note from "../components/note";
+import IntroText from "../../components/intro";
+import SearchArea from "../../components/search_area";
+import SearchResponse from "../../components/search_res";
+import Note from "../../components/note";
 
 
 const Search = () => {

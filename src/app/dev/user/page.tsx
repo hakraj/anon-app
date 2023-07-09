@@ -1,7 +1,7 @@
-import Intro from "../components/intro";
-import CreateArea from "../components/create_area";
-import Account from "../components/account";
-import AllNote from "../components/all_notes";
+import Intro from "../../components/intro";
+import CreateArea from "../../components/create_area";
+import Account from "../../components/account";
+import AllNote from "../../components/all_notes";
 
 
 const Profile = () => {
