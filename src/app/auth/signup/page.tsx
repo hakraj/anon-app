@@ -33,7 +33,7 @@ const Signup = () => {
                                 name="password" />
                         </div>
                         <button className=" mt-4 hover:bg-white text-xl w-full p-2 hover:text-[#f5ba13] border-[#f5ba13] border rounded-lg text-white bg-[#f5ba13]">Sign up</button>
-                        <p className="mt-5 text-slate-400 dark:text-slate-600">Already have an account? <br /><Link className="underline t" href="/auth/login">Login here</Link>.</p>
+                        <p className="mt-5 text-sm  text-slate-400 dark:text-slate-600">Already have an account? <br /><Link className="underline t" href="/auth/login">Login here</Link>.</p>
                     </form>
                 </div >
             </div >
