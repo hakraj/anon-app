@@ -1,5 +1,6 @@
 'use client'
 
+
 import Logo from "@/app/components/logo";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
