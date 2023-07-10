@@ -1,6 +1,7 @@
 import { Metadata } from 'next'
 import './globals.css'
 import { montserrat } from './fonts'
+import AuthContext from './auth_context'
 
 const appName = 'Anon'
 
@@ -20,10 +21,13 @@ export default function RootLayout({
   children: React.ReactNode,
 }) {
   return (
-    <html lang="en" className={montserrat.className}>
-      <body className="relative min-h-screen">
-        {children}
-      </body>
-    </html>
+    <AuthContext>
+      <html lang="en" className={montserrat.className}>
+        <body className="relative min-h-screen">
+          {children}
+        </body>
+      </html>
+    </AuthContext>
   )
 }
+

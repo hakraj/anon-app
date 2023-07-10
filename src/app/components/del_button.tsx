@@ -10,7 +10,7 @@ export default function DelButton({ _id }: { _id: string }) {
             await fetch(`/api/posts/${id}`, {
                 method: 'Delete',
             })
-            router.push('/dev')
+            router.push('/')
         } catch (error) {
             postMessage('Failed to delete the pet.')
         }

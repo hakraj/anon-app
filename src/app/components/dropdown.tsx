@@ -38,7 +38,7 @@ const Dropdown = () => {
     }
 
     const links = [
-        { dir: "/dev/", name: "Home" },
+        { dir: "/", name: "Home" },
         { dir: "/dev/explore", name: "Explore" },
         { dir: "/dev/user", name: "Account" },
         { dir: "/dev/about", name: "About" }
