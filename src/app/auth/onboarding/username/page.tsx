@@ -49,13 +49,15 @@ const Onboarding = () => {
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault()
 
-    const res = await onboardUser({ email: userEmail, name: username });
+    if (!error) {
+      const res = await onboardUser({ email: userEmail, name: username });
 
-    if (res.sucesss) {
-      router.push('/auth/onboarding/avatar')
-    } else {
-      setError("error")
-      throw new Error("error")
+      if (res.sucesss) {
+        router.push('/auth/onboarding/avatar')
+      } else {
+        setError("error")
+        throw new Error("error")
+      }
     }
 
   }
