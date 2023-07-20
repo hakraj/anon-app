@@ -76,7 +76,7 @@ const Login = () => {
                 autoFocus
               />
             </div>
-            <div className="form-floating text-left my-1 ">
+            <div className="form-floating relative text-left my-1 ">
               <label className="text-sm  text-slate-600 dark:text-slate-400" htmlFor="floatingPassword">Password</label><br />
               <input
                 onChange={handleChange}
