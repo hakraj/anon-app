@@ -1,53 +1,30 @@
 'use client'
 
 import { useState } from "react";
-import IntroText from "../../components/intro";
-import SearchArea from "../../components/search_area";
-import SearchResponse from "../../components/search_res";
-import Note from "../../components/note";
+import { queryData } from "../../../../utils/service";
+import IntroText from "../../components/main/intro";
+import SearchArea from "../../components/main/search_area";
+import SearchResponse from "../../components/main/search_res";
+import Note from "../../components/main/note";
 
 
 const Search = () => {
 
-  const [foundPosts, setFoundNotes] = useState([]);
+  const [foundNotes, setFoundNotes] = useState([]);
   const [isFeedback, setIsFeedback] = useState(false);
 
-  /* The GET method finds a query entry in the mongodb database. */
-  async function queryData(query: { qtitle?: string, qcontent?: string }) {
-    try {
-      const { qtitle, qcontent } = query
-
-      const url = new URL('/api/posts/query', window.location.href);
-      qtitle && url.searchParams.set('qtitle', qtitle.trim())
-      qcontent && url.searchParams.set('qcontent', qcontent.trim())
-
-      const res = await fetch(url.toString(), { cache: 'no-store' });
-
-      if (!res.ok) {
-        throw new Error('Request failed');
-      }
-
-      const data = await res.json()
-
-      console.log(data);
-
-
-      if (data.success) {
-        setFoundNotes(data.data)
-
-        setIsFeedback(true)
-      }
-    } catch (error) {
-      console.log('Failed to find post')
-    }
+  const query = async (qnote: { qtitle?: string, qcontent?: string }) => {
+    const matches = await queryData(qnote);
+    setFoundNotes(matches);
+    setIsFeedback(true);
   }
 
   return (
     <main>
-      <IntroText text="Search for posts" />
-      <SearchArea queryData={queryData} />
-      <SearchResponse show={isFeedback} matchNo={foundPosts ? foundPosts.length : 0} />
-      <Note posts={foundPosts} />
+      <IntroText text="Search for notes" />
+      <SearchArea query={query} />
+      <SearchResponse show={isFeedback} matchNo={foundNotes ? foundNotes.length : 0} />
+      <Note notes={foundNotes} />
     </main>
   );
 }

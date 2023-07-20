@@ -2,6 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
+import { putData } from '../../../../../utils/service';
 
 
 const Edit = ({ params }: { params: { id: string } }) => {
@@ -36,35 +37,10 @@ const Edit = ({ params }: { params: { id: string } }) => {
     });
   }
 
-  /* The PUT method adds a new entry in the mongodb database. */
-  const putData = async (post: { title: string, content: string, }) => {
-
-    const contentType = 'application/json'
-
-    try {
-      const res: Response = await fetch(`/api/posts/${params.id}`, {
-        method: 'PUT',
-        headers: {
-          Accept: contentType,
-          'Content-Type': contentType,
-        },
-        body: JSON.stringify(post),
-      })
-
-      // Throw error with status code in case Fetch API req failed
-      if (!res.ok) {
-        throw new Error(res.status.toString())
-      }
-
-    } catch (error) {
-      postMessage('Failed to add post')
-    }
-  }
-
   function submitPost(event: { preventDefault: () => void; }) {
     console.log(post);
 
-    putData(post).then(() => {
+    putData({ id: params.id, ...post }).then(() => {
       setPost({
         title: "",
         content: ""
