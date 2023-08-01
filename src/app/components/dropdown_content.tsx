@@ -15,7 +15,7 @@ const Content = (
 ) => {
 
   return (
-    <div className="absolute top-0 right-0 z-[1051] bg-[#f5ba13] min-h-screen w-full bg-[url('https://www.transparenttextures.com/patterns/brushed-alum.png')]">
+    <div className="absolute top-0 right-0 z-[1051] bg-[#f5ba13] min-h-full w-full bg-[url('https://www.transparenttextures.com/patterns/brushed-alum.png')]">
       <header className=" flex justify-between items-center bg-[#f5ba13] py-4 px-8 shadow-[0_0_10px_0_rgba(0,0,0,0.3)] ">
         <Logo color={"white"} />
         <Image

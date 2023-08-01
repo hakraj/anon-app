@@ -1,17 +1,32 @@
 'use client'
-import { MouseEventHandler, useState } from "react";
+import { MouseEventHandler, useEffect, useState } from "react";
 import { postData } from "../../../../utils/service";
 import { useSession } from "next-auth/react";
+import { getUser } from "../../../../utils/user";
 
 
 const CreateArea = () => {
   // auth session
   const { data: session, status } = useSession()
-  const user = session?.user as {
-    email: string;
-    name?: string | undefined;
-    image?: string | undefined;
-  }
+  const userEmail = session?.user?.email as string;
+
+  const [user, setUser] = useState({ email: userEmail, name: "" });
+
+  useEffect(() => {
+    if (session?.user?.name) {
+      setUser({
+        email: session?.user?.email as string,
+        name: session?.user?.name as string,
+      })
+    } else {
+      // Fetch the current user 
+      const fetchUser = async () => {
+        const res = await getUser({ email: userEmail })
+        setUser(res.data)
+      }
+      fetchUser();
+    }
+  }, [session?.user?.email, session?.user?.name, userEmail]);
 
   // state to expand the create_area
   const [isExpand, setIsExpand] = useState(false);
@@ -42,6 +57,7 @@ const CreateArea = () => {
 
   //fn to ubmit and create new note
   const submitNote: MouseEventHandler<HTMLButtonElement> = (event) => {
+
     postData({ author: user, note: note }).then(() => {
       setNote({
         title: "",

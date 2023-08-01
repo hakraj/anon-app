@@ -6,16 +6,29 @@ import Account from "../../components/main/account";
 import Note from "@/app/components/main/note";
 import { useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
+import { getUser } from "../../../../utils/user";
 
 
 const Profile = () => {
-  const { data: session, status } = useSession()
+  const { data: session, status } = useSession();
+  const userEmail = session?.user?.email as string;
+
+  const [currentUser, setCurrentUser] = useState("");
+
   const [notes, setNotes] = useState([]);
 
-  const img = session?.user?.image as string;
-  const name = session?.user?.name
-
   useEffect(() => {
+    if (session?.user?.name) {
+      setCurrentUser(session?.user?.name as string)
+    } else {
+      // Fetch the current user 
+      const fetchUser = async () => {
+        const res = await getUser({ email: userEmail })
+        setCurrentUser(res.data.name)
+      }
+      fetchUser();
+    }
+
     const fetchData = async () => {
       // Fetch the user posts data from the server
       if (status === "authenticated") {
@@ -34,12 +47,12 @@ const Profile = () => {
 
     // Cleanup the interval on component unmount
     return () => clearInterval(interval);
-  }, [session, status]);
+  }, [session, status, userEmail]);
 
   return (
     <main>
-      <Intro text={`Hey ${name} !`} />
-      <Account img={img} notes={notes} />
+      <Intro text={`Hey ${currentUser} !`} />
+      <Account notes={notes} />
       <CreateArea />
       <Note notes={notes} />
     </main>

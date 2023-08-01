@@ -2,43 +2,51 @@
 
 import DelButton from "../../components/main/del_button";
 import Link from "next/link";
-import Image from "next/image";
 import { useState, useEffect, MouseEventHandler, ChangeEventHandler } from 'react';
 import { useSession } from "next-auth/react";
 import { putData } from "../../../../utils/service";
+import { getUser } from "../../../../utils/user";
 
-interface Post {
-  id: string,
-  name: string,
-  image: string,
-  title: string,
-  content: string,
-  likes: string[],
-  comments: {}[],
-}
 
 const IdPost = ({ params }: { params: { id: string } }) => {
   const { data: session, status } = useSession()
-  const currentUser = session?.user?.name as string
+  const userEmail = session?.user?.email as string;
+
+  const [currentUser, setCurrentUser] = useState("");
 
 
   const [post, setPost] = useState({ _id: "", author: { name: "" }, title: "", content: "", likes: [""], comments: [{ author: "", text: "", createdAt: new Date().toLocaleDateString(), }] });
-  const { _id, author: { name }, title, content, likes, comments } = post;
+  const { author: { name }, title, content, likes, comments } = post;
 
   const [owned, setOwned] = useState(false);
   const [isLiked, setLiked] = useState(false);
   const [newComment, setNewComment] = useState({ author: currentUser, text: "", createdAt: new Date().toLocaleDateString() });
 
   useEffect(() => {
+
+    if (session?.user?.name) {
+      setCurrentUser(session?.user?.name as string)
+    } else {
+      // Fetch the current user 
+      const fetchUser = async () => {
+        const res = await getUser({ email: userEmail })
+        setCurrentUser(res.data.name)
+      }
+      fetchUser();
+    }
+
     const fetchData = async () => {
       // Fetch the latest posts data from the server
       const response = await fetch(`/api/posts/${params.id}`);
       const data = await response.json();
       setPost(data.data);
+
       if (status === "authenticated") {
         const showLike = likes.includes(currentUser)
+
         setLiked(showLike);
       }
+
       if (currentUser === name) {
         setOwned(true)
       }
@@ -53,7 +61,7 @@ const IdPost = ({ params }: { params: { id: string } }) => {
 
     // Cleanup the interval on component unmount
     return () => clearInterval(interval);
-  }, [currentUser, likes, name, params.id, status]);
+  }, [currentUser, likes, name, params.id, session?.user?.name, status, userEmail]);
 
 
   const handleLike: MouseEventHandler<SVGSVGElement> = (e) => {
@@ -68,7 +76,6 @@ const IdPost = ({ params }: { params: { id: string } }) => {
       const newlikes = likes.filter(val => val !== currentUser);
       putData({ id: params.id, likes: newlikes })
     }
-
   }
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = (event) => {
@@ -79,17 +86,10 @@ const IdPost = ({ params }: { params: { id: string } }) => {
       text: value,
       createdAt: new Date().toLocaleDateString(),
     })
-
   }
 
   const submitComment: MouseEventHandler<HTMLButtonElement> = (event) => {
-
-    setPost((prev) => {
-      return {
-        ...prev,
-        comments: [newComment, ...comments,]
-      };
-    })
+    event.preventDefault();
 
     const commentData = [newComment, ...comments,]
 
@@ -101,7 +101,13 @@ const IdPost = ({ params }: { params: { id: string } }) => {
       })
     })
 
-    event.preventDefault();
+    setPost((prev) => {
+      return {
+        ...prev,
+        comments: [newComment, ...comments,]
+      };
+    })
+
   }
 
   return (
@@ -152,6 +158,7 @@ const IdPost = ({ params }: { params: { id: string } }) => {
           <div className="mt-8">
             <h1 className="text-slate-500 dark:text-slate-400">Comments</h1>
             <hr className="border-slate-300 dark:border-slate-500" />
+
             <form>
               <input
                 className="dark:bg-slate-700 w-3/4 border border-slate-300 dark:border-slate-500 focus:border-[#f5ba13] rounded-lg mt-1 mr-1 p-1.5 outline-none  font-family-inherit resize-none"
@@ -165,19 +172,11 @@ const IdPost = ({ params }: { params: { id: string } }) => {
               />
               <button onClick={submitComment} className="bg-inherit p-1 px-2 text-[#f5ba13] border-[#f5ba13] border rounded-lg hover:text-white hover:bg-[#f5ba13]">Send</button>
             </form>
+
             {comments && comments.map((comment, index) => {
               return (
                 <div key={index} className="my-4">
-                  <div className='flex items-center justify-start my-1'>
-                    <Image
-                      className="rounded-full shadow-md outline-none mr-4"
-                      src="/images/anon-avatar.png"
-                      alt="avatar-img"
-                      width={24}
-                      height={24}
-                    />
-                    <p className="text-sm">{comment.text}</p>
-                  </div>
+                  <p className="text-sm my-1">{comment.text}</p>
                   <div className="flex items-center justify-start">
                     <p className="text-slate-400 dark:text-slate-500 text-xs mr-4">{comment.author}</p>
                     <p className="text-slate-400 dark:text-slate-500 text-xs">{comment.createdAt}</p>

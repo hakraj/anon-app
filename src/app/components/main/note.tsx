@@ -6,7 +6,7 @@ const Note = (
     {
       notes: {
         _id: string,
-        author: { email: string, name: string, image: string }
+        author: { email: string, name: string }
         title: string,
         content: string,
         likes: [],
@@ -25,7 +25,6 @@ const Note = (
               key={note._id}
               id={note._id}
               name={note.author.name}
-              image={note.author.image}
               title={note.title}
               content={note.content}
               likes={note.likes}

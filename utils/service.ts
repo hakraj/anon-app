@@ -1,10 +1,8 @@
 
 /* The POST method adds a new entry in the mongodb database. */
-const postData = async (post: { author: { email: string, name?: string, image?: string }, note: { title: string, content: string, } }) => {
+const postData = async (post: { author: { email: string, name?: string }, note: { title: string, content: string, } }) => {
 
   const contentType = 'application/json'
-  console.log(post);
-
 
   try {
     const res: Response = await fetch('/api/posts/', {
@@ -20,10 +18,6 @@ const postData = async (post: { author: { email: string, name?: string, image?: 
     if (!res.ok) {
       throw new Error(res.status.toString())
     }
-
-    const anon = await res.json()
-    console.log(anon);
-
 
   } catch (error) {
     console.log('Failed to add post')

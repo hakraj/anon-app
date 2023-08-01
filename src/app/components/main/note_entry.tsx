@@ -1,14 +1,13 @@
 import { useState, MouseEventHandler, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { putData } from "../../../../utils/service";
-import Image from "next/image";
 import { useSession } from "next-auth/react";
+import { getUser } from "../../../../utils/user";
 
 export default function Entry(
-  { id, name, image, title, content, likes, comments }: {
+  { id, name, title, content, likes, comments }: {
     id: string,
     name: string,
-    image: string,
     title: string,
     content: string,
     likes: string[],
@@ -17,21 +16,33 @@ export default function Entry(
 ) {
   const router = useRouter();
   const { data: session, status } = useSession()
-  const currentUser = session?.user?.name as string
+  const userEmail = session?.user?.email as string;
+
+  const [currentUser, setCurrentUser] = useState("");
 
   const [like, setLike] = useState(likes)
   const [isLiked, setLiked] = useState(false)
 
   useEffect(() => {
-    // Fetch the user posts data from the server
+    if (session?.user?.name) {
+      setCurrentUser(session?.user?.name as string)
+    } else {
+      // Fetch the current user 
+      const fetchUser = async () => {
+        const res = await getUser({ email: userEmail })
+        setCurrentUser(res.data.name)
+      }
+      fetchUser();
+    }
+
+    // Fetch the user like status
     if (status === "authenticated") {
       const showLike = likes.includes(currentUser)
-      console.log(likes, showLike, currentUser);
 
       setLiked(showLike);
     }
 
-  }, [currentUser, likes, , status]);
+  }, [currentUser, likes, session?.user?.name, status, userEmail]);
 
 
 
@@ -66,21 +77,11 @@ export default function Entry(
 
   return (
     <div onClick={handleClick} className="bg-white dark:bg-slate-800 rounded-lg shadow-md p-2 sm:p-3 m-2 sm:m-4 h-fit float-left">
-      <div className="flex items-center">
-        <Image
-          priority
-          src={image}
-          className="rounded-full shadow-md outline outline-slate-300 mr-2 "
-          height={20}
-          width={20}
-          alt="dox_dev_img"
-        />
-        <p className=" text-xs text-slate-500">{name}</p>
-
-      </div>
 
       <h1 className=" dark:text-white text-[1rem] sm:text-[1.2rem] my-2 break-words">{title && title.length > 30 ? title.substring(0, 30) + " ..." : title}</h1>
       <p className="text-slate-600 dark:text-slate-400 text-[0.85rem] sm:text-[1.1rem] mb-2 sm:mb-3 whitespace-pre-wrap break-words">{content && content.length > 100 ? content.substring(0, 100) + " ..." : content}</p>
+
+      <p className="text-right text-xs text-slate-500">~ {name}</p>
 
       <div className=" flex justify-between items-center my-1">
         <div className="flex justify-around items-center w-2/5 sm:w-1/3 ">

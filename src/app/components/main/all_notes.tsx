@@ -18,7 +18,7 @@ const AllNote = () => {
     fetchData();
 
     // Fetch the latest posts data every 10 seconds
-    const interval = setInterval(fetchData, 4000);
+    const interval = setInterval(fetchData, 5000);
 
     // Cleanup the interval on component unmount
     return () => clearInterval(interval);

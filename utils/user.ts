@@ -32,7 +32,7 @@ const confirmUser = async (session: Session) => {
 }
 
 // create a new user in the db
-const PostUser = async (user: { email: string, password?: string, name?: string, image?: string }) => {
+const PostUser = async (user: { email: string, password?: string, name?: string, }) => {
   const contentType = 'application/json'
 
   try {
@@ -60,7 +60,7 @@ const PostUser = async (user: { email: string, password?: string, name?: string,
 }
 
 // confirm user and update if neccesary
-const onboardUser = async (user: { email: string, password?: string, name?: string, image?: string }) => {
+const onboardUser = async (user: { email: string, password?: string, name?: string, }) => {
 
   const updatedUser = user
 
@@ -90,16 +90,15 @@ const onboardUser = async (user: { email: string, password?: string, name?: stri
   }
 }
 
-const getUser = async (user: { email?: string, password?: string, name?: string, image?: string }) => {
+const getUser = async (user: { email?: string, password?: string, name?: string, }) => {
   try {
 
-    const { email, password, name, image } = user;
+    const { email, password, name } = user;
 
-    const url = new URL('/api/users', "https://anon-app-git-notify-hakraj.vercel.app");
+    const url = new URL('/api/users', "http://localhost:3000/"); /*https://anon-app-git-notify-hakraj.vercel.app*/
     email && url.searchParams.set('email', email.trim())
     password && url.searchParams.set('password', password.trim())
     name && url.searchParams.set('name', name.trim())
-    image && url.searchParams.set('image', image.trim())
     const res = await fetch(url.toString(), { cache: 'no-store' });
 
     // Throw error with status code in case Fetch API req failed

@@ -38,7 +38,6 @@ const Edit = ({ params }: { params: { id: string } }) => {
   }
 
   function submitPost(event: { preventDefault: () => void; }) {
-    console.log(post);
 
     putData({ id: params.id, ...post }).then(() => {
       setPost({
@@ -62,7 +61,7 @@ const Edit = ({ params }: { params: { id: string } }) => {
           <div className='flex items-center justify-between m-1'>
             <h1 className="text-2xl">Edit Post</h1>
             <svg className='w-5 h-5 fill-current text-[#f5ba13]' xmlns="http://www.w3.org/2000/svg" onClick={() => router.back()}>
-              <path d="M17.778.808l1.414 1.414L11.414 10l7.778 7.778-1.414 1.414L10 11.414l-7.778 7.778-1.414-1.414L8.586 10 .808 2.222 2.222.808 10 8.586 17.778.808z" fill-rule="evenodd" />
+              <path d="M17.778.808l1.414 1.414L11.414 10l7.778 7.778-1.414 1.414L10 11.414l-7.778 7.778-1.414-1.414L8.586 10 .808 2.222 2.222.808 10 8.586 17.778.808z" fillRule="evenodd" />
             </svg>
           </div>
 

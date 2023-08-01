@@ -16,8 +16,6 @@ const handler = NextAuth({
         //peform logic and find uer from db
         const user = await getUser({ email, password })
 
-        console.log(user);
-
         if (!user.data) {
           return null
         }

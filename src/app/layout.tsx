@@ -3,7 +3,7 @@ import './globals.css'
 import { montserrat } from './fonts'
 import AuthContext from './auth_context'
 
-const appName = 'Anon'
+const appName = 'notify'
 
 export const metadata: Metadata = {
   title: appName,

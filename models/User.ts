@@ -7,9 +7,11 @@ export const UserSchema: Schema = new Schema({
     type: String,
     required: true
   },
-  password: { type: String },
+  password: {
+    type: String,
+    minlength: [8, "Password cannot be less than 8 characters"],
+  },
   name: { type: String },
-  image: { type: String, default: "/images/anon-avatar.png" }
 })
 
 

@@ -11,7 +11,6 @@ import FormTitle from "@/app/components/auth/form_title";
 
 
 const Onboarding = () => {
-
   const router = useRouter();
   const { data: session, status } = useSession()
   const [username, setUsername] = useState("");
@@ -20,8 +19,6 @@ const Onboarding = () => {
   useEffect(() => {
     if (status === "authenticated") {
       confirmUser(session);
-      console.log(session);
-
       if (session?.user?.name) {
         router.push('/');
       }
@@ -33,17 +30,14 @@ const Onboarding = () => {
   const handleChange: ChangeEventHandler<HTMLInputElement> = async (e) => {
     const { value } = e.target;
 
-    setUsername(value);
-
     const user = await getUser({ name: value })
     if (user.data) {
-      console.log(user);
-
       setError("username is already taken")
     } else {
-      console.log(user);
       setError("")
     }
+
+    setUsername(value);
   }
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
@@ -53,7 +47,7 @@ const Onboarding = () => {
       const res = await onboardUser({ email: userEmail, name: username });
 
       if (res.sucesss) {
-        router.push('/auth/onboarding/avatar')
+        router.push('/')
       } else {
         setError("error")
         throw new Error("error")
@@ -84,10 +78,9 @@ const Onboarding = () => {
                 autoFocus
               />
             </div>
+
             {error && <ErrorMessage text={error} />}
             <FormBtn error={!error} text="Next" />
-
-            <p className="text-sm text-slate-400 dark:text-slate-600 my-4">1/2</p>
 
           </form>
         </div >

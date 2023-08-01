@@ -4,8 +4,6 @@ import Post from "../../../../../models/Post";
 import url from 'url';
 
 
-
-
 export async function GET(req: Request) {
   try {
     const user = url.parse(req.url, true).query;

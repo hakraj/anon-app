@@ -1,16 +1,12 @@
-'use client'
 
-import Image from "next/image";
 
 const Account = (
-  { img, notes, }: {
-    img: string,
+  { notes, }: {
     notes: {
       _id: string;
       author: {
         email: string;
         name: string;
-        image: string;
       };
       title: string;
       content: string;
@@ -27,7 +23,6 @@ const Account = (
         author: {
           email: "",
           name: "",
-          image: "",
         },
         title: "",
         content: "",
@@ -38,27 +33,15 @@ const Account = (
     { likes: [], comments: [] }
 
 
-
-
   return (
-    <div className="flex justify-start items-center w-11/12 my-8 mx-auto lg:w-1/2 ">
-      <div className="ml-[5%] mr-auto">
-        <Image
-          className="rounded-full shadow-md outline-none"
-          src={img}
-          alt="avatar-img"
-          width={102}
-          height={102}
-        />
-      </div>
-
+    <div className="flex justify-evenly items-center w-11/12 my-8 mx-auto lg:w-1/2 ">
       <div className="text-center px-[5%] " >
         <h1 className="text-4xl sm:text-6xl">{notes.length}</h1>
-        <p className="text-xs sm:text-base">notes</p>
+        <p className="text-xs sm:text-base text-slate-600 dark:text-slate-400">notes</p>
       </div>
       <div className="text-center px-[5%] ">
         <h1 className="text-4xl sm:text-6xl">{(noteScore.likes.length + noteScore.comments.length) * 10}</h1>
-        <p className="text-xs sm:text-base">notescore</p>
+        <p className="text-xs sm:text-base text-slate-600 dark:text-slate-400">notescore</p>
       </div>
 
     </div>
