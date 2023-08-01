@@ -95,7 +95,7 @@ const getUser = async (user: { email?: string, password?: string, name?: string,
 
     const { email, password, name } = user;
 
-    const url = new URL('/api/users', "http://localhost:3000/"); /*https://anon-app-git-notify-hakraj.vercel.app*/
+    const url = new URL('/api/users', "https://anon-app-git-notify-hakraj.vercel.app"); /*https://anon-app-git-notify-hakraj.vercel.app*/
     email && url.searchParams.set('email', email.trim())
     password && url.searchParams.set('password', password.trim())
     name && url.searchParams.set('name', name.trim())
