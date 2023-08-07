@@ -5,9 +5,9 @@ import { useSession } from "next-auth/react";
 import { getUser } from "../../../../utils/user";
 
 export default function Entry(
-  { id, name, title, content, likes, comments }: {
+  { id, title, content, likes, comments }: {
     id: string,
-    name: string,
+    // name: string,
     title: string,
     content: string,
     likes: string[],
@@ -81,7 +81,7 @@ export default function Entry(
       <h1 className=" dark:text-white text-[1rem] sm:text-[1.2rem] my-2 break-words">{title && title.length > 30 ? title.substring(0, 30) + " ..." : title}</h1>
       <p className="text-slate-600 dark:text-slate-400 text-[0.85rem] sm:text-[1.1rem] mb-2 sm:mb-3 whitespace-pre-wrap break-words">{content && content.length > 100 ? content.substring(0, 100) + " ..." : content}</p>
 
-      <p className="text-right text-xs text-slate-500">~ {name && name}</p>
+      {/* <p className="text-right text-xs text-slate-500">~ {name && name}</p> */}
 
       <div className=" flex justify-between items-center my-1">
         <div className="flex justify-around items-center w-2/5 sm:w-1/3 ">
