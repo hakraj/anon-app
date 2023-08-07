@@ -24,7 +24,7 @@ const Note = (
             <Entry
               key={note._id}
               id={note._id}
-              // name={note.author.name}
+              name={note.author.name}
               title={note.title}
               content={note.content}
               likes={note.likes}
