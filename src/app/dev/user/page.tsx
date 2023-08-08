@@ -33,12 +33,8 @@ const Profile = () => {
     const fetchData = async () => {
       // Fetch the user posts data from the server
       if (status === "authenticated") {
-        console.log(userEmail);
-
         const response = await fetch(`/api/posts/user?email=${userEmail}`);
         const data = await response.json();
-
-        console.log(data);
 
         setNotes(data.data);
       }
