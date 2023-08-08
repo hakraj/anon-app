@@ -91,22 +91,24 @@ const IdPost = ({ params }: { params: { id: string } }) => {
   const submitComment: MouseEventHandler<HTMLButtonElement> = (event) => {
     event.preventDefault();
 
-    const commentData = [newComment, ...comments,]
+    if (newComment.text) {
+      const commentData = [newComment, ...comments,]
 
-    putData({ id: params.id, comments: commentData }).then(() => {
-      setNewComment({
-        author: currentUser,
-        text: "",
-        createdAt: new Date().toLocaleDateString(),
+      putData({ id: params.id, comments: commentData }).then(() => {
+        setNewComment({
+          author: currentUser,
+          text: "",
+          createdAt: new Date().toLocaleDateString(),
+        })
       })
-    })
 
-    setPost((prev) => {
-      return {
-        ...prev,
-        comments: [newComment, ...comments,]
-      };
-    })
+      setPost((prev) => {
+        return {
+          ...prev,
+          comments: [newComment, ...comments,]
+        };
+      })
+    }
 
   }
 
