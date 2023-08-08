@@ -1,8 +1,32 @@
 'use client'
-import { useState } from "react";
+import { MouseEventHandler, useEffect, useState } from "react";
+import { postData } from "../../../../utils/service";
+import { useSession } from "next-auth/react";
+import { getUser } from "../../../../utils/user";
 
 
 const CreateArea = () => {
+  // auth session
+  const { data: session, status } = useSession()
+  const userEmail = session?.user?.email as string;
+
+  const [user, setUser] = useState({ email: userEmail, name: "" });
+
+  useEffect(() => {
+    if (session?.user?.name) {
+      setUser({
+        email: session?.user?.email as string,
+        name: session?.user?.name as string,
+      })
+    } else {
+      // Fetch the current user 
+      const fetchUser = async () => {
+        const res = await getUser({ email: userEmail })
+        setUser(res.data)
+      }
+      fetchUser();
+    }
+  }, [session?.user?.email, session?.user?.name, userEmail]);
 
   // state to expand the create_area
   const [isExpand, setIsExpand] = useState(false);
@@ -31,33 +55,10 @@ const CreateArea = () => {
 
   }
 
-  /* The POST method adds a new entry in the mongodb database. */
-  async function postData(post: { title: string, content: string, }) {
+  //fn to ubmit and create new note
+  const submitNote: MouseEventHandler<HTMLButtonElement> = (event) => {
 
-    const contentType = 'application/json'
-
-    try {
-      const res: Response = await fetch('/api/posts/', {
-        method: 'POST',
-        headers: {
-          Accept: contentType,
-          'Content-Type': contentType,
-        },
-        body: JSON.stringify(post),
-      })
-
-      // Throw error with status code in case Fetch API req failed
-      if (!res.ok) {
-        throw new Error(res.status.toString())
-      }
-
-    } catch (error) {
-      postMessage('Failed to add post')
-    }
-  }
-
-  function submitNote(event: { preventDefault: () => void; }) {
-    postData(note).then(() => {
+    postData({ author: user, note: note }).then(() => {
       setNote({
         title: "",
         content: ""
@@ -78,6 +79,7 @@ const CreateArea = () => {
             onChange={handleChange}
             value={note.title}
             placeholder="Title"
+            maxLength={60}
           />
         )}
         <textarea
@@ -86,8 +88,9 @@ const CreateArea = () => {
           name="content"
           onChange={handleChange}
           value={note.content}
-          placeholder="Make a post..."
+          placeholder="Make a note..."
           rows={isExpand ? 3 : 1}
+          maxLength={2450}
         />
         {isExpand &&
           <button onClick={submitNote} className=" flex justify-center items-center absolute right-4 -bottom-4 bg-[#f5ba13] text-white hover:text-[#f5ba13] hover:bg-[#eee] border-none w-8 h-8 shadow-sm cursor-pointer outline-none rounded-full">

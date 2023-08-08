@@ -1,8 +1,7 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials"
 import GoogleProvider from "next-auth/providers/google";
-import dbConnect from "../../../../../lib/dbConnect";
-import User from "../../../../../models/User";
+import { getUser } from "../../../../../utils/user";
 
 const handler = NextAuth({
   session: {
@@ -15,14 +14,13 @@ const handler = NextAuth({
       async authorize(credentials, _req) {
         const { email, password } = credentials as { email: string, password: string };
         //peform logic and find uer from db
-        await dbConnect()
+        const user = await getUser({ email, password })
 
-        const user = await User.findOne({ email, password })
-        if (!user) {
+        if (!user.data) {
           return null
         }
 
-        return user
+        return user.data
       },
     }),
     GoogleProvider({

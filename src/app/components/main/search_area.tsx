@@ -1,25 +1,16 @@
 'use client'
 import { useState } from "react";
 
-const SearchArea = (
-  { queryData }: {
-    queryData: (
-      query: {
-        qtitle: string,
-        qcontent: string,
-      }
-    ) => Promise<void>
-  }
-) => {
+const SearchArea = ({ query }: { query: (qnote: any) => Promise<void> }) => {
 
   // Query_note input form state
-  const [query, setQuery] = useState({ qtitle: "", qcontent: "" });
+  const [qnote, setQnote] = useState({ qtitle: "", qcontent: "" });
 
   // fn to handle change in input and textarea [nested setQuery_note fn]
   function handleChange(event: { target: { name: any; value: any; }; }) {
     const { name, value } = event.target;
 
-    setQuery((prev) => {
+    setQnote((prev) => {
       return {
         ...prev,
         [name]: value
@@ -29,8 +20,8 @@ const SearchArea = (
   }
 
   function submitQuery(event: { preventDefault: () => void; }) {
-    queryData(query).then(() => {
-      setQuery({
+    query(qnote).then(() => {
+      setQnote({
         qtitle: "",
         qcontent: ""
       })
@@ -46,16 +37,19 @@ const SearchArea = (
           className="dark:bg-slate-700 w-full border-none p-1 outline-none text-xl font-family-inherit resize-none"
           name="qtitle"
           onChange={handleChange}
-          value={query.qtitle}
+          value={qnote.qtitle}
           placeholder="Find a Title"
+          maxLength={60}
+
         />
         <textarea
           className="dark:bg-slate-700 w-full border-none p-1 outline-none text-base sm:text-xl font-family-inherit resize-none"
           name="qcontent"
           onChange={handleChange}
-          value={query.qcontent}
-          placeholder="Find a post..."
+          value={qnote.qcontent}
+          placeholder="Find a note..."
           rows={3}
+          maxLength={2450}
         />
         <button onClick={submitQuery} className=" flex justify-center items-center absolute right-4 -bottom-4 bg-[#f5ba13] text-white hover:text-[#f5ba13] hover:bg-[#eee] border-none w-8 h-8 shadow-sm cursor-pointer outline-none rounded-full">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">

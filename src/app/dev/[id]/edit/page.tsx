@@ -2,6 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
+import { putData } from '../../../../../utils/service';
 
 
 const Edit = ({ params }: { params: { id: string } }) => {
@@ -36,35 +37,9 @@ const Edit = ({ params }: { params: { id: string } }) => {
     });
   }
 
-  /* The PUT method adds a new entry in the mongodb database. */
-  const putData = async (post: { title: string, content: string, }) => {
-
-    const contentType = 'application/json'
-
-    try {
-      const res: Response = await fetch(`/api/posts/${params.id}`, {
-        method: 'PUT',
-        headers: {
-          Accept: contentType,
-          'Content-Type': contentType,
-        },
-        body: JSON.stringify(post),
-      })
-
-      // Throw error with status code in case Fetch API req failed
-      if (!res.ok) {
-        throw new Error(res.status.toString())
-      }
-
-    } catch (error) {
-      postMessage('Failed to add post')
-    }
-  }
-
   function submitPost(event: { preventDefault: () => void; }) {
-    console.log(post);
 
-    putData(post).then(() => {
+    putData({ id: params.id, ...post }).then(() => {
       setPost({
         title: "",
         content: ""
@@ -86,7 +61,7 @@ const Edit = ({ params }: { params: { id: string } }) => {
           <div className='flex items-center justify-between m-1'>
             <h1 className="text-2xl">Edit Post</h1>
             <svg className='w-5 h-5 fill-current text-[#f5ba13]' xmlns="http://www.w3.org/2000/svg" onClick={() => router.back()}>
-              <path d="M17.778.808l1.414 1.414L11.414 10l7.778 7.778-1.414 1.414L10 11.414l-7.778 7.778-1.414-1.414L8.586 10 .808 2.222 2.222.808 10 8.586 17.778.808z" fill-rule="evenodd" />
+              <path d="M17.778.808l1.414 1.414L11.414 10l7.778 7.778-1.414 1.414L10 11.414l-7.778 7.778-1.414-1.414L8.586 10 .808 2.222 2.222.808 10 8.586 17.778.808z" fillRule="evenodd" />
             </svg>
           </div>
 

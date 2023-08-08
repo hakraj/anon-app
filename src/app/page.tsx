@@ -1,23 +1,22 @@
-import Intro from "./components/intro";
-import CreateArea from "./components/create_area";
-import AllNote from "./components/all_notes";
+import Intro from "./components/main/intro";
+import CreateArea from "./components/main/create_area";
+import AllNote from "./components/main/all_notes";
 import Footer from "./components/Footer";
-import Header from "./components/Navbar";
+import Navbar from "./components/Navbar";
 import IsAuth from "./components/is_auth";
 
 
 const Home = () => {
   return (
     <IsAuth>
-      <Header />
+      <Navbar />
       <main>
-        <Intro text="Hello, Love to Share Anon?" />
+        <Intro text="Hello, Love to Share a note?" />
         <CreateArea />
         <AllNote />
       </main>
       <Footer />
     </IsAuth>
-
   )
 }
 
