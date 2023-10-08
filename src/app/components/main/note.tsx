@@ -19,7 +19,7 @@ const Note = (
       {
         notes
         &&
-        notes.map((note) => {
+        notes.reverse().map((note) => {
           return (
             <Entry
               key={note._id}
