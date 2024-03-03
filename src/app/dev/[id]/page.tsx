@@ -49,7 +49,11 @@ const IdPost = ({ params }: { params: { id: string } }) => {
 
       if (currentUser === name) {
         setOwned(true)
+      } else {
+        setOwned(false)
       }
+
+      console.log(owned);
 
     };
 

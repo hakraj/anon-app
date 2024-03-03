@@ -14,6 +14,7 @@ const Onboarding = () => {
   const router = useRouter();
   const { data: session, status } = useSession()
   const [username, setUsername] = useState("");
+  const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
 
   useEffect(() => {
@@ -30,30 +31,29 @@ const Onboarding = () => {
   const handleChange: ChangeEventHandler<HTMLInputElement> = async (e) => {
     const { value } = e.target;
 
-    const user = await getUser({ name: value })
-    if (user.data) {
-      setError("username is already taken")
-    } else {
-      setError("")
-    }
-
     setUsername(value);
   }
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault()
+    setLoading(true)
 
-    if (!error) {
+    const user = await getUser({ name: username })
+    if (user.data) {
+      setLoading(false)
+      return setError("username is already taken")
+    } else {
       const res = await onboardUser({ email: userEmail, name: username });
 
       if (res.sucesss) {
+        setLoading(false)
         router.push('/')
       } else {
         setError("error")
+        setLoading(false)
         throw new Error("error")
       }
     }
-
   }
 
   return (
@@ -80,7 +80,7 @@ const Onboarding = () => {
             </div>
 
             {error && <ErrorMessage text={error} />}
-            <FormBtn error={!error} text="Next" />
+            <FormBtn loading={loading} text="Next" />
 
           </form>
         </div >

@@ -8,7 +8,7 @@ const Alt = ({ use }: { use: string }) => {
       return (
         <p className="mt-4 text-xs text-slate-400 dark:text-slate-600">
           Already have an account? <br />
-          <Link className="underline text-black dark:text-white" href="/auth/login">Login here</Link>.
+          <Link className="underline text-black dark:text-white hover:text-[#f5ba13]" href="/auth/login">Login here</Link>.
         </p>
       );
 
@@ -16,7 +16,7 @@ const Alt = ({ use }: { use: string }) => {
       return (
         <p className="mt-4 text-xs text-slate-400 dark:text-slate-600">
           Don&apos;t have an account? <br />
-          <Link className="underline text-black dark:text-white" href="/auth/signup">Signup here</Link>.
+          <Link className="underline text-black dark:text-white hover:text-[#f5ba13]" href="/auth/signup">Signup here</Link>.
         </p>
       );
 
